@@ -36,11 +36,12 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 0 0 40px;
+      padding: 0 20px 40px;
     }
 
     header {
-      width: 100%;
+      align-self: stretch;
+      margin: 0 -20px;
       background: #0A0C0B;
       border-bottom: 2px solid var(--verde);
       padding: 20px 24px;
@@ -73,7 +74,7 @@
     .card {
       width: 100%;
       max-width: 420px;
-      margin: 28px 20px 0;
+      margin: 28px 0 0;
       background: var(--preto-card);
       border-radius: var(--radius);
       box-shadow: 0 4px 24px rgba(0,0,0,0.35);
@@ -257,7 +258,7 @@
 <div class="card">
   <div class="card-header">
     <h1>Atualize seu cadastro</h1>
-    <p>Informe seu CPF e o celular com DDD para realizarmos seu cadastro corretamente no Kesh Bank 💚</p>
+    <p>Informe seu CPF e celular com DDD para realizarmos seu cadastro corretamente no Kesh Bank <span style="color: var(--verde);">♥</span></p>
   </div>
 
   <div class="card-body" id="tela-form">
@@ -288,7 +289,6 @@
           inputmode="numeric"
           autocomplete="off"
         >
-        <div class="hint">Ex: (11) 99589-8565</div>
         <div class="msg-erro" id="erro-tel">Número inválido. Informe DDD + número (10 ou 11 dígitos).</div>
       </div>
 
@@ -296,8 +296,8 @@
         <p id="msg-falha">Ocorreu um erro. Por favor, tente novamente.</p>
       </div>
 
-      <button type="submit" id="btn-enviar">Confirmar</button>
-      <p class="privacidade">Seus dados serão usados apenas pelo RH e pelo Kesh Bank para cadastro.</p>
+      <button type="submit" id="btn-enviar">Enviar</button>
+      <p class="privacidade">Seus dados serão utilizados apenas pelo RH e pelo Kesh Bank para realização do cadastro e suporte na ativação da conta.</p>
     </form>
   </div>
 
@@ -399,14 +399,14 @@
           document.getElementById("msg-falha").textContent = "Erro: " + resp.erro;
           document.getElementById("falha-servidor").style.display = "block";
           btn.disabled    = false;
-          btn.textContent = "Confirmar";
+          btn.textContent = "Enviar";
         }
       })
       .catch(function(err) {
         document.getElementById("msg-falha").textContent = "Erro de conexão. Tente novamente.";
         document.getElementById("falha-servidor").style.display = "block";
         btn.disabled    = false;
-        btn.textContent = "Confirmar";
+        btn.textContent = "Enviar";
       });
   });
 
@@ -416,7 +416,7 @@
     document.getElementById("cpf").value      = "";
     document.getElementById("telefone").value = "";
     document.getElementById("btn-enviar").disabled    = false;
-    document.getElementById("btn-enviar").textContent = "Confirmar";
+    document.getElementById("btn-enviar").textContent = "Enviar";
   }
 </script>
 
