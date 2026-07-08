@@ -285,9 +285,9 @@
 
   <div class="sucesso" id="tela-sucesso">
     <div class="icone">✓</div>
-    <h2>Cadastro enviado!</h2>
-    <p>Seu celular foi recebido com sucesso e será atualizado em breve. Obrigado 💚</p>
-    <button class="btn-novo" onclick="reiniciar()">Enviar outro cadastro</button>
+    <h2>Sucesso!</h2>
+    <p>Agradecemos pelo preenchimento 💚</p>
+    <button class="btn-novo" onclick="reiniciar()">Enviar nova resposta</button>
   </div>
 </div>
 
@@ -365,8 +365,12 @@
     btn.disabled    = true;
     btn.textContent = "Enviando...";
 
-    google.script.run
-      .withSuccessHandler(function(resp) {
+    var urlBase = window.location.href.split("?")[0];
+    var urlEnvio = urlBase + "?cpf=" + encodeURIComponent(cpf) + "&telefone=" + encodeURIComponent(tel);
+
+    fetch(urlEnvio)
+      .then(function(r) { return r.json(); })
+      .then(function(resp) {
         if (resp.sucesso) {
           document.getElementById("tela-form").style.display    = "none";
           document.getElementById("tela-sucesso").style.display = "block";
@@ -377,13 +381,12 @@
           btn.textContent = "Confirmar";
         }
       })
-      .withFailureHandler(function(err) {
+      .catch(function(err) {
         document.getElementById("msg-falha").textContent = "Erro de conexão. Tente novamente.";
         document.getElementById("falha-servidor").style.display = "block";
         btn.disabled    = false;
         btn.textContent = "Confirmar";
-      })
-      .gravarDados({ cpf: cpf, telefone: tel });
+      });
   });
 
   function reiniciar() {
